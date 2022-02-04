@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Person Galleri</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main id="galleri"></main>
+    <script>
+      const url = "https://persongalleri-5d3e.restdb.io/rest/persongalleri";
+      let jsonData = "";
+      const options = {
+        headers: {
+          "x-apikey": "600fe9211346a1524ff12e31",
+        },
+      };
+      async function hentData() {
+        const resspons = await fetch(url, options);
+        const json = await resspons.json();
+        formatering(json);
+      }
+
+      window.addEventListener("load", hentData);
+
+      function formatering(json) {
+        json.forEach((element) => {
+          const galleri = document.getElementById("galleri");
+          const card = document.createElement("div");
+          card.classList.add("card");
+          galleri.appendChild(card);
+
+          const img = document.createElement("img");
+          console.log();
+          img.src = "faces/" + element.billede;
+          console.log(img);
+          card.appendChild(img);
+
+          const name = document.createElement("h2");
+          name.textContent = `${element.fornavn} ${element.efternavn}`;
+          card.appendChild(name);
+
+          const mail = document.createElement("a");
+          mail.href = "mailto:" + element.email;
+          mail.textContent = element.email;
+          card.appendChild(mail);
+
+          const hobby = document.createElement("p");
+          hobby.textContent = "Hobby: " + element.hobby;
+          card.appendChild(hobby);
+          console.log(element);
+
+          console.log(element["fødselsdag"]);
+          const birthday = document.createElement("p");
+          birthday.textContent =
+            "Fødselsdag: " +
+            new Date(element["fødselsdag"]).toLocaleDateString();
+          card.appendChild(birthday);
+        });
+        console.log(json);
+      }
+    </script>
+  </body>
+</html>

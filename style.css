@@ -1,0 +1,12 @@
+img {
+  width: 100%;
+}
+#galleri {
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.card {
+  padding: 20px;
+}
